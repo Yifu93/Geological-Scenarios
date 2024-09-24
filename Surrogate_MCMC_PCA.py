@@ -10,7 +10,7 @@ from keras import backend as K
 from keras.layers import Input, Flatten, Dense, Lambda, Reshape, concatenate, TimeDistributed, RepeatVector, ConvLSTM3D
 from keras.models import Model
 from keras.optimizers import Adam
-from Markov_chain_1 import *
+from Markov_chain import *
 import random
 from pca import PCA
 
