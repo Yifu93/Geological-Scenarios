@@ -22,7 +22,7 @@ def load_data(data_path, array_name_list):
     hf_r.close()
     return result
 
-data_dir = '/scratch/users/yifu/GEOSX_BHP'
+data_dir = '/Dataset'
 # load training data
 simulation_data = os.path.join(data_dir, 'Sw_train_10_steps.h5')
 sat_t = load_data(simulation_data, ['saturation'])
@@ -152,7 +152,7 @@ input_shape = (20, 80, 80, 3)
 vae_model,_ = vae_util.create_vae(input_shape, depth)
 vae_model.summary(line_length = 150)
 
-output_dir = 'saved_models_1_new/'
+output_dir = 'saved_models/'
 epochs = 300
 train_nr   = train_x.shape[0]
 batch_size = 4
@@ -177,7 +177,7 @@ vae_model.compile(loss = relative_error, optimizer = opt, metrics = [vae_loss, r
 
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
 lrScheduler = ReduceLROnPlateau(monitor = 'loss', factor = 0.5, patience = 10, cooldown = 1, verbose = 1, min_lr = 1e-7)
-filePath = 'saved_models_1_new/saved-model-10-steps-lr3e-4-saturation-hd-0-filter_8_16_32_32-mse-{epoch:03d}-{val_loss:.2f}.h5'
+filePath = 'saved_models/saved-model-10-steps-lr3e-4-saturation-hd-0-filter_8_16_32_32-mse-{epoch:03d}-{val_loss:.2f}.h5'
 checkPoint = ModelCheckpoint(filePath, monitor = 'val_loss', verbose = 1, save_best_only = False, \
                              save_weights_only = True, mode = 'auto', period = 20)
 
