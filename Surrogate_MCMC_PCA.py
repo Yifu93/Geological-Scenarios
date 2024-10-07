@@ -55,31 +55,31 @@ batch_size = 1
 vae_model_p,_ = vae_util.create_vae(input_shape, depth) # load pressure surrogate model
 vae_model_p.summary(line_length=150)
 
-output_dir_p = '/oak/stanford/schools/ees/smart_fields/yifu/Surrogate_Modeling_v1/saved_models_0/'
+output_dir_p = '/saved_models_0/'
 vae_model_p.load_weights(output_dir_p + 'saved-model-10steps-lr3e-4-pressure-detrend-hd-0-filter_16_32_32_64-mse-300-41.44.h5')
 
 vae_model_s,_ = vae_util.create_vae(input_shape, depth) # load saturation surrogate model
 vae_model_s.summary(line_length=150)
 
-output_dir_s = '/oak/stanford/schools/ees/smart_fields/yifu/Surrogate_Modeling_v1/saved_models_0/'
+output_dir_s = '/saved_models_0/'
 vae_model_s.load_weights(output_dir_s + 'saved-model-10-steps-lr3e-4-saturation-hd-0-filter_16_32_32_64-mse-500-711.30.h5') 
 
-P_initial = load_data('/oak/stanford/schools/ees/smart_fields/yifu/GEOSX_Flow_Surrogate_v1/data/P_initial.h5', ['pressure'])
+P_initial = load_data('P_initial.h5', ['pressure'])
 P_initial = np.array(P_initial)
 P_initial = P_initial[0,...]
 
-max_p = load_data('/oak/stanford/schools/ees/smart_fields/yifu/GEOSX_Flow_Surrogate_v1/data/max_p.h5', ['pressure'])
+max_p = load_data('max_p.h5', ['pressure'])
 max_p = np.array(max_p)
 max_p = max_p[0,...]
 
-min_p = load_data('/oak/stanford/schools/ees/smart_fields/yifu/GEOSX_Flow_Surrogate_v1/data/min_p.h5', ['pressure'])
+min_p = load_data('min_p.h5', ['pressure'])
 min_p = np.array(min_p)
 min_p = min_p[0,...]
 
 # ======================================================================================================================
 # ======================================================== PCA =========================================================
 # ======================================================================================================================
-multi_Gaussian = load_data('/oak/stanford/schools/ees/smart_fields/yifu/GEOSX_Well/PCA/logk_1.h5', ['logk'])
+multi_Gaussian = load_data('logk_1.h5', ['logk'])
 multi_Gaussian = np.array(multi_Gaussian)
 multi_Gaussian = multi_Gaussian[0, :, :, :, :]
 
@@ -276,11 +276,11 @@ for chain_num in range(m):
             theta_chain_save = theta_chain[0 : iter_num + 1, :]
             likelihood_chain_save = likelihood_chain[0 : iter_num + 1]
             
-            np.save('theta_chain_pca_1',      theta_chain_save)
-            np.save('likelihood_chain_pca_1', likelihood_chain_save)
-            np.save('is_accept_pca_1',        is_accept)
-            np.save('n_proposed_pca_1',       n_proposed)
-            np.save('n_accepted_pca_1',       n_accepted)          
+            np.save('theta_chain_pca',      theta_chain_save)
+            np.save('likelihood_chain_pca', likelihood_chain_save)
+            np.save('is_accept_pca',        is_accept)
+            np.save('n_proposed_pca',       n_proposed)
+            np.save('n_accepted_pca',       n_accepted)          
             isCheckConvergence = True
                       
         else:
@@ -361,20 +361,20 @@ for chain_num in range(m):
 
             PDF_mean_logk_previous, PDF_std_logk_previous, PDF_a_previous, PDF_b_previous, PDF_kvkh_previous = PDF_mean_logk, PDF_std_logk, PDF_a, PDF_b, PDF_kvkh
             
-            np.save('PDF_mean_logk_pca_1', PDF_mean_logk_previous)
-            np.save('PDF_std_logk_pca_1',  PDF_std_logk_previous)
-            np.save('PDF_a_pca_1',         PDF_a_previous)
-            np.save('PDF_b_pca_1',         PDF_b_previous)
-            np.save('PDF_kvkh_pca_1',      PDF_kvkh_previous)
+            np.save('PDF_mean_logk_pca', PDF_mean_logk_previous)
+            np.save('PDF_std_logk_pca',  PDF_std_logk_previous)
+            np.save('PDF_a_pca',         PDF_a_previous)
+            np.save('PDF_b_pca',         PDF_b_previous)
+            np.save('PDF_kvkh_pca',      PDF_kvkh_previous)
             
 print("\n============== MCMC results ==============")
 print("\t\t\t\t\t\tMean \t St. dev.")
 for i in range(n_theta):
     print("{:15s} \t {:7.3f} \t {:7.3f}".format(theta_labels[i], np.mean(theta_chain[:, i]), np.std(theta_chain[:, i])))
     
-np.save('theta_chain_pca_1', theta_chain)
-np.save('pca_chain_pca_1',   pca_chain)
-np.save('is_accept_pca_1',   is_accept)
-np.save('n_proposed_pca_1',  n_proposed)
-np.save('n_accepted_pca_1',  n_accepted)
-np.save('likelihood_chain_pca_1', likelihood_chain)
+np.save('theta_chain_pca', theta_chain)
+np.save('pca_chain_pca',   pca_chain)
+np.save('is_accept_pca',   is_accept)
+np.save('n_proposed_pca',  n_proposed)
+np.save('n_accepted_pca',  n_accepted)
+np.save('likelihood_chain_pca', likelihood_chain)
