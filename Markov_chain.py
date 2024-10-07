@@ -27,13 +27,13 @@ def load_data(data_path, array_name_list):
 def load_true_simulation_data():
     
     # Read noisy pressure
-    true_pressure_dir = '/oak/stanford/schools/ees/smart_fields/yifu/Revision_1/CPM_True_1/Pressure_Obeservation_1.h5'
+    true_pressure_dir = 'Pressure_Obeservation_1.h5'
     true_pressure = load_data(true_pressure_dir, ['pressure'])
     true_pressure = np.array(true_pressure)
     true_pressure = true_pressure.reshape(4, 10, 20)
     
     # Read noisy saturation
-    true_saturation_dir = '/oak/stanford/schools/ees/smart_fields/yifu/Revision_1/CPM_True_1/Saturation_Obeservation_1.h5'
+    true_saturation_dir = 'Saturation_Obeservation_1.h5'
     true_saturation = load_data(true_saturation_dir, ['saturation'])
     true_saturation = np.array(true_saturation)
     true_saturation = true_saturation.reshape(4, 10, 20)
